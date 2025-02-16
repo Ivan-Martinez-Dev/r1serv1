@@ -77,105 +77,181 @@ y se imprima en el div de clase 'output' de la siguiente manera 'el total de lis
 <template>
 
 	<html>
-
-		<head>
-
-		</head>
-
-		<body>
-
-			<div id="contenedor">
-
-				<div class="bloque1">
-
-					<p>Este es el Bloque 1 dentro del contenedor.</p>
-
-				</div>
-
-				<div class="bloque2">
-
-					<p>Este es el contenido del Bloque 2 dentro del contenedor, este contiene mas texto, por eso debe ser mas largo.</p>
-
-				</div>
-
-			</div>
-
-			<div class="bloque1">
-
-				<p>Este es el Bloque 1 fuera del contenedor.</p>
-
-			</div>
-
-			<div class="bloque2">
-
-				<p>Este es el Bloque 2 fuera del contenedor.</p>
-
-			</div>
-
-			<div class="v-container">
-
-
-				
-			</div>
-			<div class="btn">
-				Generar 
-			</div>
-			<div class="output">
-				 
-			</div>
-
-		</body>
-
+  
+	<head>
+  
+	</head>
+  
+	<body>
+  
+	  <div id="contenedor">
+  
+		<div class="bloque1">
+  
+		  <p>Este es el Bloque 1 dentro del contenedor.</p>
+  
+		</div>
+  
+		<div class="bloque2">
+  
+		  <p>Este es el contenido del Bloque 2 dentro del contenedor, este contiene mas texto, por eso debe ser mas largo.
+		  </p>
+  
+		</div>
+		<div class="clear"></div>
+  
+	  </div>
+  
+	  <div class="bloque1">
+  
+		<p>Este es el Bloque 1 fuera del contenedor.</p>
+  
+	  </div>
+  
+	  <div class="bloque2">
+  
+		<p>Este es el Bloque 2 fuera del contenedor.</p>
+  
+	  </div>
+  
+	  <div class="v-container">
+  
+		<!-- For que recorre y retorna los datos que cumplan en oddItems -->
+		 
+		<div v-for="item in oddItems" :key="item.id"
+		  v-bind:style="{ backgroundColor: index % 2 !== 0 ? '#e6e6e6' : 'transparent' }">
+		  <p>Nombre: "{{ item.name }}", Roles: "{{ item.roles.join(', ') }}"</p>
+		</div>
+	  </div>
+  
+	  <!-- Boton con evento Click -->
+  
+	  <div class="btn" @click="habilitarInput">
+		Generar
+	  </div>
+  
+	  <!-- Input para añadir dato -->
+  
+	  <input v-if="inputVisible" type="number" v-model="userInput" placeholder="Escribe un número"
+		@input="actualizarSalida" />
+  
+	  <!-- Salida para el dato en Div Output -->
+  
+	  <div class="output">
+		{{ output }}
+	  </div>
+  
+	</body>
+  
 	</html>
-
-</template>
-
-<script>
-
-export default {
-
+  
+  </template>
+  
+  <script>
+  
+  export default {
+  
 	name: 'SupportView',
 	components: {
-
+  
 	},
-	data () {
-		return {
-			myArray: [],
-			output:"",
-			
+	data() {
+	  return {
+		myArray: [
+		  { id: 1, name: 'Ivan', roles: [1, 2] },
+		  { id: 2, name: 'Ramiro', roles: [2, 3] },
+		  { id: 3, name: 'Ana', roles: [4, 5] },
+		  { id: 4, name: 'Camilo', roles: [5, 4] },
+		  { id: 5, name: 'Yesica', roles: [3, 2] }],
+		userInput: "",
+		output: "",
+		inputVisible: false
+  
+	  }
+	},
+	computed: {
+	  // Filtra los impares
+	  oddItems() {
+		return this.myArray.filter((item, index) => index % 2 !== 0);
+	  }
+	},
+	methods: {
+	  // Método que habilita el input al hacer clic en el botón
+	  habilitarInput() {
+		this.inputVisible = true;
+	  },
+	  // Método que actualiza la salida cuando el usuario escribe algo en el input
+	  actualizarSalida() {
+		if (this.userInput !== "") {
+		  this.output = `El total de listado es: ${this.userInput}`;
+		} else {
+		  this.output = "";
 		}
-	},
-	computed:{
-	
-	},
-	methods:{
-
+	  }
 	}
-
-}
-
-</script>
-
-<style type="text/css">
-
-	<!-- 
-	
-	.clear {
-	
-		clear:both;
-	
-	}
-	
-	
-	
-	/* Completar aquí la respuesta  */
-	
-	
-	
-	
-	
-
-	
-	-->
-	
-	</style>
+  
+  }
+  
+  </script>
+  
+  <style type="text/css">
+  .clear {
+  
+	clear: both;
+  
+  }
+  
+  
+  
+  /* Completar aquí la respuesta  */
+  
+  #contenedor {
+	width: 600px;
+	margin: 0 auto 10px;
+	padding: 10px;
+	border: 1px dotted gray;
+  }
+  
+  #contenedor .bloque1 {
+	width: 100px;
+	margin: 70px 0 0;
+  }
+  
+  #contenedor .bloque2 {
+	width: 100px;
+  }
+  
+  #contenedor .bloque1,
+  #contenedor .bloque2 {
+	float: left;
+	margin: 5px;
+  }
+  
+  .bloque1:not(#contenedor .bloque1),
+  .bloque2:not(#contenedor .bloque2) {
+	float: none;
+  }
+  
+  .bloque1 {
+	background: red;
+	color: #FFFFFF;
+  }
+  
+  .bloque2 {
+	background: yellow;
+	color: #000000;
+  }
+  
+  #contenedor .bloque1 p {
+	font-style: italic;
+  }
+  
+  .bloque2 p {
+	font-weight: bold;
+  }
+  
+  p {
+	padding: 10px;
+  }
+  </style>
+  
