@@ -36,12 +36,31 @@ error_reporting(E_ALL); // Si el examen está bien hecho NO debe mostrar ningún
 
 // ************************************ FUNCION A COMPLETAR **************************************** //
 
-function examen(){
+function examen($iMin, $iMax, &$aDatos)
+{
+	// Validamos que los parametros sean correctos 
+	if (!is_int($iMin) || !is_int($iMax) || $iMin < 1 || $iMin > 999 || $iMax < 1 || $iMax > 999 || $iMax <= $iMin || !is_array($aDatos) || !empty($aDatos)) {
+		return FALSE;
+	}
 
-	
+	// Recorremos un arreglo en caso que cumpla las condiciones para llenar el arrelo con FOO, BAR Y FOOBAR
 
-	
+	for ($i = $iMin; $i <= $iMax; $i++) {
 
+		// Veridficamos la primera condicion que cumplen los dos numeros y luego seguimos con las demas condiciones
+
+		if ($i % 3 == 0 && $i % 5 == 0) {
+			$aDatos[$i] = "FOOBAR";
+		} elseif ($i % 3 == 0) {
+			$aDatos[$i] = "FOO";
+		} elseif ($i % 5 == 0) {
+			$aDatos[$i] = "BAR";
+		} else {
+			$aDatos[$i] = "";
+		}
+	}
+
+	return TRUE;
 }
 
 
@@ -88,18 +107,16 @@ $bExamen = examen($iMin, $iMax, $aDatos1);
 
 
 
-if($bExamen){
+if ($bExamen) {
 
 	echo "Caso de prueba 1:\n";
 
 	print_r($aDatos1);
 
 	echo "\n";
-
 } else {
 
-	echo "\nEl caso de Prueba 1 no se ha procesado porque los parámetros no cumplen con los requisitos.";	
-
+	echo "\nEl caso de Prueba 1 no se ha procesado porque los parámetros no cumplen con los requisitos.";
 }
 
 
@@ -122,18 +139,16 @@ $bExamen = examen($iMin, $iMax, $aDatos2);
 
 
 
-if($bExamen){
+if ($bExamen) {
 
 	echo "\nCaso de prueba 2:\n";
 
 	print_r($aDatos2);
 
 	echo "\n";
-
 } else {
 
-	echo "\nEl caso de Prueba 2 no se ha procesado porque los parámetros no cumplen con los requisitos.";	
-
+	echo "\nEl caso de Prueba 2 no se ha procesado porque los parámetros no cumplen con los requisitos.";
 }
 
 
@@ -154,18 +169,16 @@ $bExamen = examen($iMin, $iMax, $aDatos3);
 
 
 
-if($bExamen){
+if ($bExamen) {
 
 	echo "\nCaso de prueba 3:\n";
 
 	print_r($aDatos3);
 
 	echo "\n";
-
 } else {
 
-	echo "\nEl caso de Prueba 3 no se ha procesado porque los parámetros no cumplen con los requisitos.";	
-
+	echo "\nEl caso de Prueba 3 no se ha procesado porque los parámetros no cumplen con los requisitos.";
 }
 
 
@@ -186,18 +199,16 @@ $bExamen = examen($iMin, $iMax, $aDatos4);
 
 
 
-if($bExamen){
+if ($bExamen) {
 
 	echo "\nCaso de prueba 4:\n";
 
 	print_r($aDatos4);
 
 	echo "\n";
-
 } else {
 
-	echo "\nEl caso de Prueba 4 no se ha procesado porque los parámetros no cumplen con los requisitos.";	
-
+	echo "\nEl caso de Prueba 4 no se ha procesado porque los parámetros no cumplen con los requisitos.";
 }
 
 
@@ -218,18 +229,16 @@ $bExamen = examen($iMin, $iMax, $aDatos5);
 
 
 
-if($bExamen){
+if ($bExamen) {
 
 	echo "\nCaso de prueba 5:\n";
 
 	print_r($aDatos5);
 
 	echo "\n";
-
 } else {
 
-	echo "\nEl caso de Prueba 5 no se ha procesado porque los parámetros no cumplen con los requisitos.";	
-
+	echo "\nEl caso de Prueba 5 no se ha procesado porque los parámetros no cumplen con los requisitos.";
 }
 
 
@@ -250,18 +259,16 @@ $bExamen = examen($iMin, $iMax, $aDatos6);
 
 
 
-if($bExamen){
+if ($bExamen) {
 
 	echo "\nCaso de prueba 6:\n";
 
 	print_r($aDatos6);
 
 	echo "\n";
-
 } else {
 
-	echo "\nEl caso de Prueba 6 no se ha procesado porque los parámetros no cumplen con los requisitos.";	
-
+	echo "\nEl caso de Prueba 6 no se ha procesado porque los parámetros no cumplen con los requisitos.";
 }
 
 
@@ -289,19 +296,3 @@ if($bExamen){
 
 
 </pre>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
